@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light theme ── */
+:root {
+  --bg-page:       #ffffff;
+  --bg-resume:     #ffffff;
+  --text-primary:  #111111;
+  --text-secondary:#444444;
+  --text-muted:    #6b7280;
+  --text-faint:    #9ca3af;
+  --border:        #e5e7eb;
+  --border-strong: #111111;
+  --tag-bg:        #f3f4f6;
+  --tag-border:    #e5e7eb;
+  --tag-text:      #1f2937;
+  --badge-bg:      #6b7280;
+  --badge-text:    #ffffff;
+  --link:          #1a56db;
+  --icon-bg:       #f9fafb;
+  --icon-border:   #d1d5db;
+  --icon-color:    #555555;
+  --toolbar-btn-active-bg:    #111111;
+  --toolbar-btn-active-text:  #ffffff;
+  --toolbar-btn-idle-bg:      #ffffff;
+  --toolbar-btn-idle-text:    #555555;
+  --toolbar-btn-border:       #d1d5db;
+  --resume-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  --green-bg:      #ecfdf5;
+  --green-border:  #6ee7b7;
+  --green-text:    #059669;
+}
+
+/* ── Dark theme ── */
+[data-theme="dark"] {
+  --bg-page:       #0f1117;
+  --bg-resume:     #1a1d27;
+  --text-primary:  #f0f0f0;
+  --text-secondary:#c0c0c0;
+  --text-muted:    #9ca3af;
+  --text-faint:    #6b7280;
+  --border:        #2d3141;
+  --border-strong: #e0e0e0;
+  --tag-bg:        #252836;
+  --tag-border:    #343748;
+  --tag-text:      #d1d5db;
+  --badge-bg:      #4b5563;
+  --badge-text:    #f3f4f6;
+  --link:          #60a5fa;
+  --icon-bg:       #252836;
+  --icon-border:   #374151;
+  --icon-color:    #9ca3af;
+  --toolbar-btn-active-bg:    #f0f0f0;
+  --toolbar-btn-active-text:  #111111;
+  --toolbar-btn-idle-bg:      #1e2130;
+  --toolbar-btn-idle-text:    #9ca3af;
+  --toolbar-btn-border:       #374151;
+  --resume-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  --green-bg:      #052e16;
+  --green-border:  #166534;
+  --green-text:    #4ade80;
+}
+
+html, body {
+  background: var(--bg-page);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.2s;
+}
+
+/* ── A4 page (screen preview) ── */
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;          /* screen only: show at least one full page */
+  background: var(--bg-resume);
+  margin: 0 auto;
+  padding: 14mm 16mm;
+  box-sizing: border-box;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: var(--text-primary);
+  border-radius: 12px;
+  box-shadow: var(--resume-shadow);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Section title */
+.section-title {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 1.5px solid var(--border-strong);
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+  margin-top: 18px;
+}
+
+/* No page-break inside a single item */
+.no-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT STYLES
+   Key principles:
+   1. @page margin: 0  →  no browser header/footer text is drawn
+      (browsers only draw page header/footer inside the @page margin area)
+   2. .a4-page gets its own padding to recreate the whitespace
+   3. min-height: unset  →  no phantom extra pages when content is short
+   4. html/body height: auto  →  prevents extra blank pages
+   ═══════════════════════════════════════════════════════════════ */
+@media print {
+  html, body {
+    background: white !important;
+    height: auto !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .a4-page {
+    width: 100% !important;
+    /* Remove min-height so short content doesn't generate a blank extra page */
+    min-height: unset !important;
+    height: auto !important;
+    margin: 0 !important;
+    /* Restore inner whitespace that @page margin: 0 no longer provides */
+    padding: 14mm 16mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+    color: #111 !important;
+  }
+
+  .section-title {
+    margin-top: 14px;
+    color: #111 !important;
+    border-bottom-color: #111 !important;
+  }
+
+  .skill-label {
+    color: #6b7280 !important;
+  }
+}
+
+/*
+ * @page: margin: 0 is the ONLY way to suppress the browser's built-in
+ * header (page title + URL) and footer (date + page number).
+ * The visual content margins are handled by .a4-page padding above.
+ *
+ * Note: users can still override this in the browser print dialog
+ * ("Headers and footers" checkbox) but the default will be clean.
+ */
+@page {
+  size: A4;
+  margin: 0;
+}
