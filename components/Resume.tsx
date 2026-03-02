@@ -207,7 +207,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
                 </div>
 
                 {/* Patents */}
-                {edu.patents?.length > 0 && (
+                {edu.patents && edu.patents.length > 0 && (
                   <div style={{ marginTop:"8px" }}>
                     <p style={{ fontSize:"8.5pt", fontWeight:600, color:iv("--text-secondary"), marginBottom:"4px" }}>{L.patents}</p>
                     <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:"3px" }}>
@@ -231,7 +231,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
                 )}
 
                 {/* Papers */}
-                {edu.papers?.length > 0 && (
+                {edu.papers && edu.papers.length > 0 && (
                   <div style={{ marginTop:"8px" }}>
                     <p style={{ fontSize:"8.5pt", fontWeight:600, color:iv("--text-secondary"), marginBottom:"4px" }}>{L.papers}</p>
                     <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:"5px" }}>
@@ -315,7 +315,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
       )}
 
       {/* ══ PROJECTS ══ */}
-      {data.projects?.length > 0 && (
+      {data.projects && data.projects.length > 0 && (
         <section>
           <div className="section-title">{L.projects}</div>
           <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
@@ -343,7 +343,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
       )}
 
       {/* ══ AWARDS ══ */}
-      {data.awards?.length > 0 && (
+      {data.awards && data.awards.length > 0 && (
         <section className="no-break">
           <div className="section-title">{L.awards}</div>
           <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:"4px" }}>
@@ -363,7 +363,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
       )}
 
       {/* ══ CERTIFICATIONS ══ */}
-      {data.certifications?.length > 0 && (
+      {data.certifications && data.certifications.length > 0 && (
         <section className="no-break">
           <div className="section-title">{L.certs}</div>
           <div style={{ display:"flex", flexDirection:"column", gap:"6px" }}>
@@ -381,7 +381,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
       )}
 
       {/* ══ LANGUAGES ══ */}
-      {data.languages?.length > 0 && (
+      {data.languages && data.languages.length > 0 && (
         <section className="no-break">
           <div className="section-title">{L.lang}</div>
           <div style={{ display:"flex", gap:"24px", flexWrap:"wrap" }}>
