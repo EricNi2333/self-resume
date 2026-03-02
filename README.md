@@ -10,7 +10,7 @@
 - 📋 **完整简历结构**：工作经历、教育（含专利/论文）、技能分类、项目、奖项、证书
 - ⚡ **Next.js 14 App Router** + TypeScript
 - 💅 **Tailwind CSS** + Noto Sans SC 字体
-- 🐳 **Docker 支持**：双阶段构建，配套 docker-compose 与 GitHub Actions CI/CD
+- 🐳 **Docker 支持**：配套 docker-compose 与 GitHub Actions CI/CD
 
 ## 🚀 快速开始
 
