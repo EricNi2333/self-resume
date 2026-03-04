@@ -1,48 +1,76 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { resumeData } from "@/lib/resume-data";
-import { resumeDataEn } from "@/lib/resume-data-en";
+import { ResumeData } from "@/lib/types";
 import { Resume } from "@/components/Resume";
 
-type Lang = "zh" | "en";
-type Theme = "light" | "dark";
+type Lang  = "zh" | "en";
+type Theme = "system" | "light" | "dark";
 
 export default function Home() {
-  const [lang, setLang]   = useState<Lang>("zh");
-  const [theme, setTheme] = useState<Theme>("light");
-  const data = lang === "zh" ? resumeData : resumeDataEn;
+  const [lang,       setLang]       = useState<Lang>("zh");
+  const [theme,      setTheme]      = useState<Theme>("system");
+  const [systemDark, setSystemDark] = useState(false);
+  const [zhData,     setZhData]     = useState<ResumeData | null>(null);
+  const [enData,     setEnData]     = useState<ResumeData | null>(null);
 
-  /* apply theme to <html> */
+  /* ── Fetch resume data from public/ (edit JSON without rebuilding) ── */
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "");
+    fetch("/resume-data.zh.json").then(r => r.json()).then(setZhData);
+    fetch("/resume-data.en.json").then(r => r.json()).then(setEnData);
+  }, []);
+
+  /* ── Track system color-scheme preference ── */
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    setSystemDark(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setSystemDark(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  /* ── Apply theme to <html> (no attr = let CSS media-query decide) ── */
+  useEffect(() => {
+    if (theme === "system") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
   }, [theme]);
 
-  const toggleTheme = () => setTheme(t => t === "light" ? "dark" : "light");
-  const isDark = theme === "dark";
+  const isDark = theme === "dark" || (theme === "system" && systemDark);
+  const data   = lang === "zh" ? zhData : enData;
 
-  /* ── shared button styles ── */
+  /* system → light → dark → system */
+  const cycleTheme = () =>
+    setTheme(t => t === "system" ? "light" : t === "light" ? "dark" : "system");
+
+  const themeLabel = (l: Lang) => {
+    if (theme === "system") return l === "zh" ? "跟随系统" : "System";
+    if (theme === "light")  return l === "zh" ? "白天"     : "Light";
+    return                         l === "zh" ? "夜晚"     : "Dark";
+  };
+
   const segBtn = (active: boolean): React.CSSProperties => ({
     padding: "5px 14px",
     cursor: "pointer",
     border: "none",
-    background: active ? "var(--toolbar-btn-active-bg)" : "var(--toolbar-btn-idle-bg)",
-    color:      active ? "var(--toolbar-btn-active-text)" : "var(--toolbar-btn-idle-text)",
+    background: active ? "var(--toolbar-btn-active-bg)"   : "var(--toolbar-btn-idle-bg)",
+    color:      active ? "var(--toolbar-btn-active-text)"  : "var(--toolbar-btn-idle-text)",
     fontFamily: "system-ui, sans-serif",
     fontSize: "12px",
     fontWeight: 500,
     transition: "background 0.15s, color 0.15s",
   });
 
-
   return (
     <main style={{ background: "var(--bg-page)", minHeight: "100vh", padding: "40px 16px 60px", transition: "background 0.2s" }}>
 
       {/* ── Toolbar ── */}
-      <div className="no-print" style={{ maxWidth: "210mm", margin: "0 auto 16px", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
+      <div className="no-print toolbar-wrap">
 
         {/* Theme toggle */}
-        <button onClick={toggleTheme} title={isDark ? "切换白天模式" : "切换夜晚模式"} style={{
+        <button onClick={cycleTheme} title={themeLabel(lang)} style={{
           display: "flex", alignItems: "center", gap: "6px",
           fontSize: "12px", fontWeight: 500,
           color: "var(--toolbar-btn-idle-text)",
@@ -51,8 +79,11 @@ export default function Home() {
           borderRadius: "6px", padding: "5px 14px", cursor: "pointer",
           fontFamily: "system-ui, sans-serif", transition: "background 0.15s, color 0.15s",
         }}>
-          {isDark ? (
-            /* Sun icon */
+          {theme === "system" ? (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          ) : isDark ? (
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="5"/>
               <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -61,12 +92,11 @@ export default function Home() {
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
             </svg>
           ) : (
-            /* Moon icon */
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           )}
-          {isDark ? (lang === "zh" ? "白天" : "Light") : (lang === "zh" ? "夜晚" : "Dark")}
+          {themeLabel(lang)}
         </button>
 
         {/* Language toggle */}
@@ -78,7 +108,17 @@ export default function Home() {
       </div>
 
       {/* Resume */}
-      <Resume data={data} lang={lang} />
+      {data
+        ? <Resume data={data} lang={lang} />
+        : (
+          <div style={{
+            maxWidth: "210mm", margin: "0 auto", padding: "80px 0",
+            textAlign: "center", color: "var(--text-muted)", fontSize: "13px",
+          }}>
+            Loading…
+          </div>
+        )
+      }
     </main>
   );
 }

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Light theme ── */
+/* ── Light theme (default) ── */
 :root {
   --bg-page:       #ffffff;
   --bg-resume:     #ffffff;
@@ -32,7 +32,69 @@
   --green-text:    #059669;
 }
 
-/* ── Dark theme ── */
+/* ── Dark vars (reused by both media-query and [data-theme="dark"]) ── */
+.dark-vars {
+  --bg-page:       #0f1117;
+  --bg-resume:     #1a1d27;
+  --text-primary:  #f0f0f0;
+  --text-secondary:#c0c0c0;
+  --text-muted:    #9ca3af;
+  --text-faint:    #6b7280;
+  --border:        #2d3141;
+  --border-strong: #e0e0e0;
+  --tag-bg:        #252836;
+  --tag-border:    #343748;
+  --tag-text:      #d1d5db;
+  --badge-bg:      #4b5563;
+  --badge-text:    #f3f4f6;
+  --link:          #60a5fa;
+  --icon-bg:       #252836;
+  --icon-border:   #374151;
+  --icon-color:    #9ca3af;
+  --toolbar-btn-active-bg:    #f0f0f0;
+  --toolbar-btn-active-text:  #111111;
+  --toolbar-btn-idle-bg:      #1e2130;
+  --toolbar-btn-idle-text:    #9ca3af;
+  --toolbar-btn-border:       #374151;
+  --resume-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  --green-bg:      #052e16;
+  --green-border:  #166534;
+  --green-text:    #4ade80;
+}
+
+/* ── System dark preference (no manual override) ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-page:       #0f1117;
+    --bg-resume:     #1a1d27;
+    --text-primary:  #f0f0f0;
+    --text-secondary:#c0c0c0;
+    --text-muted:    #9ca3af;
+    --text-faint:    #6b7280;
+    --border:        #2d3141;
+    --border-strong: #e0e0e0;
+    --tag-bg:        #252836;
+    --tag-border:    #343748;
+    --tag-text:      #d1d5db;
+    --badge-bg:      #4b5563;
+    --badge-text:    #f3f4f6;
+    --link:          #60a5fa;
+    --icon-bg:       #252836;
+    --icon-border:   #374151;
+    --icon-color:    #9ca3af;
+    --toolbar-btn-active-bg:    #f0f0f0;
+    --toolbar-btn-active-text:  #111111;
+    --toolbar-btn-idle-bg:      #1e2130;
+    --toolbar-btn-idle-text:    #9ca3af;
+    --toolbar-btn-border:       #374151;
+    --resume-shadow: 0 2px 24px rgba(0,0,0,0.4);
+    --green-bg:      #052e16;
+    --green-border:  #166534;
+    --green-text:    #4ade80;
+  }
+}
+
+/* ── Manual dark override ── */
 [data-theme="dark"] {
   --bg-page:       #0f1117;
   --bg-resume:     #1a1d27;
@@ -71,10 +133,20 @@ html, body {
   transition: background 0.2s;
 }
 
+/* ── Toolbar ── */
+.toolbar-wrap {
+  max-width: 210mm;
+  margin: 0 auto 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
 /* ── A4 page (screen preview) ── */
 .a4-page {
   width: 210mm;
-  min-height: 297mm;          /* screen only: show at least one full page */
+  min-height: 297mm;
   background: var(--bg-resume);
   margin: 0 auto;
   padding: 14mm 16mm;
@@ -104,15 +176,26 @@ html, body {
   page-break-inside: avoid;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PRINT STYLES
-   Key principles:
-   1. @page margin: 0  →  no browser header/footer text is drawn
-      (browsers only draw page header/footer inside the @page margin area)
-   2. .a4-page gets its own padding to recreate the whitespace
-   3. min-height: unset  →  no phantom extra pages when content is short
-   4. html/body height: auto  →  prevents extra blank pages
-   ═══════════════════════════════════════════════════════════════ */
+/* ── Mobile responsive ── */
+@media (max-width: 740px) {
+  .toolbar-wrap {
+    max-width: 100%;
+  }
+
+  .a4-page {
+    width: 100%;
+    min-height: unset;
+    border-radius: 8px;
+    padding: 20px 16px 28px;
+    font-size: 9pt;
+  }
+
+  .section-title {
+    font-size: 11.5pt;
+  }
+}
+
+/* ── Print styles ── */
 @media print {
   html, body {
     background: white !important;
@@ -127,11 +210,9 @@ html, body {
 
   .a4-page {
     width: 100% !important;
-    /* Remove min-height so short content doesn't generate a blank extra page */
     min-height: unset !important;
     height: auto !important;
     margin: 0 !important;
-    /* Restore inner whitespace that @page margin: 0 no longer provides */
     padding: 14mm 16mm !important;
     box-shadow: none !important;
     border: none !important;
@@ -151,14 +232,6 @@ html, body {
   }
 }
 
-/*
- * @page: margin: 0 is the ONLY way to suppress the browser's built-in
- * header (page title + URL) and footer (date + page number).
- * The visual content margins are handled by .a4-page padding above.
- *
- * Note: users can still override this in the browser print dialog
- * ("Headers and footers" checkbox) but the default will be clean.
- */
 @page {
   size: A4;
   margin: 0;
