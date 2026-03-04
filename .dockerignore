@@ -1,7 +1,40 @@
+# Dependencies (will be re-installed in the container)
 node_modules
+pnpm-lock.yaml.backup
+
+# Build outputs (will be generated inside the container)
 .next
+out
+dist
+
+# Version control
 .git
-.github
+.gitignore
+
+# Documentation and configs
 *.md
-.env*
+README.md
+LICENSE
+.editorconfig
+.eslintrc.*
+.prettierrc
+tsconfig.tsbuildinfo
+
+# IDE and OS files
+.vscode
+.idea
+*.swp
+*.swo
 .DS_Store
+Thumbs.db
+
+# Logs and temp files
+logs
+*.log
+tmp
+temp
+
+# Docker files (to prevent recursive copying)
+Dockerfile
+docker-compose*.yml
+.dockerignore

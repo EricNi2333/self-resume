@@ -1,10 +1,10 @@
 services:
   resume:
-    image: resume-site:0.0.1
+    image: self-resume:0.0.1
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: resume-site
+    container_name: self-resume
     restart: unless-stopped
     ports:
       - "3006:3000"
