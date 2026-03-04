@@ -1,11 +1,12 @@
 # 📄 Resume Site
 
-参考 [self.so](https://github.com/nutlope/self.so) 风格设计的个人简历网站，支持中英双语切换、白天/夜晚模式，本地部署开箱即用。
+参考 [self.so](https://github.com/nutlope/self.so) 风格设计的个人简历网站，支持中英双语切换、亮/暗主题，本地部署开箱即用。
 
 ## ✨ 特性
 
 - 🌍 **中英双语**：一键切换中文/英文简历，数据独立维护
-- 🌙 **白天/夜晚模式**：全局 CSS 变量驱动，瞬间切换
+- 🌙 **主题跟随系统**：默认跟随 `prefers-color-scheme`，可手动切换白天/夜晚
+- 📱 **移动端适配**：小屏自动切换为全宽布局，字号与内边距自适应
 - 🎨 **A4 排版**：精准还原 PDF 简历版式，打印输出干净无页眉页脚
 - 📋 **完整简历结构**：工作经历、教育（含专利/论文）、技能分类、项目、奖项、证书
 - ⚡ **Next.js 14 App Router** + TypeScript
@@ -43,17 +44,23 @@ pnpm start
 
 ## ✏️ 修改简历内容
 
-- **中文简历**：编辑 `lib/resume-data.ts`
-- **英文简历**：编辑 `lib/resume-data-en.ts`
+简历数据以 JSON 文件形式存放在 `public/` 目录，**无需重新构建**即可生效：
 
-两份文件共享同一套 `ResumeData` 类型，字段含义一致，各自独立维护内容。
+| 文件 | 说明 |
+|------|------|
+| `public/resume-data.zh.json` | 中文简历数据 |
+| `public/resume-data.en.json` | 英文简历数据 |
 
-### 添加1寸照片
+两份文件共享同一套字段结构（见下方[数据结构说明](#-数据结构说明)），各自独立维护内容。
 
-将照片文件命名为 `avatar.jpg` 放入 `public/` 目录，然后在数据文件中取消注释：
+> **Docker 部署用户**：将 `public/` 目录挂载为 volume，直接编辑 JSON 文件后刷新浏览器即可看到更改，无需 `docker compose up --build`。
 
-```ts
-avatar: "/avatar.jpg",
+### 添加 1 寸照片
+
+将照片文件命名为 `avatar.jpg` 放入 `public/` 目录，然后在 JSON 数据中添加：
+
+```json
+"avatar": "/avatar.jpg"
 ```
 
 ## 📐 数据结构说明
@@ -160,16 +167,16 @@ Language {
 ```
 resume-site/
 ├── app/
-│   ├── globals.css          # 全局样式、CSS 变量（亮/暗主题）、打印样式
+│   ├── globals.css          # 全局样式、CSS 变量（亮/暗/系统主题）、移动端、打印样式
 │   ├── layout.tsx           # 根布局，加载字体
 │   └── page.tsx             # 首页：语言切换、主题切换、渲染简历
 ├── components/
 │   └── Resume.tsx           # 简历核心组件（所有区块）
 ├── lib/
-│   ├── types.ts             # TypeScript 类型定义
-│   ├── resume-data.ts       # 中文简历数据 ← 在这里填写你的信息
-│   └── resume-data-en.ts    # 英文简历数据 ← 英文版在这里
+│   └── types.ts             # TypeScript 类型定义
 ├── public/
+│   ├── resume-data.zh.json  # 中文简历数据 ← 在这里填写你的信息
+│   ├── resume-data.en.json  # 英文简历数据 ← 英文版在这里
 │   └── avatar.jpg           # 1寸照片（自行添加，可选）
 ├── Dockerfile               # 双阶段构建
 ├── docker-compose.yml       # 本地/服务器部署
@@ -194,6 +201,18 @@ http://localhost:3000
 
 # 停止
 docker compose down
+```
+
+### 挂载数据目录（推荐）
+
+将 `public/` 挂载为 volume，修改 JSON 后无需重建镜像：
+
+```yaml
+# docker-compose.yml
+services:
+  resume:
+    volumes:
+      - ./public:/app/public
 ```
 
 ### 修改端口
@@ -232,6 +251,11 @@ ports:
   /* ... */
 }
 ```
+
+主题切换逻辑：
+- **跟随系统**（默认）：读取 `prefers-color-scheme`，系统切换时实时响应
+- **白天 / 夜晚**：手动覆盖，通过 `data-theme` attribute 写入 `<html>`
+- 工具栏按钮循环切换：**跟随系统 → 白天 → 夜晚 → 跟随系统**
 
 ## 📜 License
 
