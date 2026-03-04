@@ -1,27 +1,23 @@
-version: "3.9"
-
 services:
   resume:
-    image: resume-site:latest        # built locally or from registry
+    image: resume-site:0.0.1
     build:
       context: .
       dockerfile: Dockerfile
     container_name: resume-site
     restart: unless-stopped
     ports:
-      - "3000:3000"                  # change left side to expose on another port, e.g. "8080:3000"
+      - "3006:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
-    # Optional: mount a custom avatar at runtime without rebuild
-    # volumes:
-    #   - ./public/avatar.jpg:/app/public/avatar.jpg:ro
+
+    volumes:
+      - ./public:/app/public:ro
+
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 15s
-
-# ── To use behind a reverse proxy (e.g. Nginx/Traefik), remove the ports
-#    mapping above and add the service to your proxy network instead.
