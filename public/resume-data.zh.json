@@ -1,11 +1,13 @@
 {
   "name": "XiaoMing",
+  "avatar": "/avatar.jpg",
   "title": "高级全栈工程师",
   "tagline": "专注于构建高性能、可扩展的 Web 应用，熟练掌握 React、Node.js 及云原生架构，曾主导多个千万级用户产品的技术设计与落地。",
   "location": "上海，中国",
   "email": "example.zhang@example.com",
   "phone": "+86 138 0000 0000",
   "wechat": "example",
+  "website": "https://github.com",
   "linkedin": "linkedin.com/in/",
   "github": "github.com/",
   "summary": "拥有 8 年全栈开发经验的工程师，专注于构建高性能、可扩展的 Web 应用。熟练掌握 React、Node.js 及云原生架构，曾主导多个千万级用户产品的技术设计与落地。热衷于工程效能提升与技术团队建设。",

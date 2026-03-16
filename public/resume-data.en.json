@@ -1,11 +1,13 @@
 {
   "name": "XiaoMing",
+  "avatar": "/avatar.jpg",
   "title": "Senior Full-Stack Engineer",
   "tagline": "Focused on building high-performance, scalable web applications. Proficient in React, Node.js and cloud-native architecture. Led technical design and delivery of multiple products serving tens of millions of users.",
   "location": "Shanghai, China",
   "email": "example.zhang@example.com",
   "phone": "+86 138 0000 0000",
   "wechat": "example",
+  "website": "https://github.com",
   "linkedin": "linkedin.com/in/",
   "github": "github.com/",
   "summary": "Full-stack engineer with 8 years of experience building high-performance, scalable web applications. Proficient in React, Node.js and cloud-native architecture. Led technical design and delivery of multiple products serving tens of millions of users. Passionate about engineering efficiency and technical team building.",
