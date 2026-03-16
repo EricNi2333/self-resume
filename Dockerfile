@@ -12,7 +12,8 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
 
 # Install all deps (including devDeps needed for build)
-RUN pnpm install --frozen-lockfile
+RUN pnpm config set registry https://registry.npmmirror.com && \
+    pnpm install --frozen-lockfile
 
 # Copy source
 COPY . .
