@@ -7,7 +7,7 @@ pipeline {
         HARBOR_PROJECT = 'self-resume'
         IMAGE_NAME = 'self-resume'
 
-        GITEA_URL = 'https://gitea.niconi.space:8443/NICO/self-resume.git'
+        GITEA_URL = 'http://gitea:3000/NICO/self-resume.git'
         GITEA_TOKEN_CRED_ID = 'gitea-credentials'
 
         HARBOR_AUTH_ID = 'harbor-credentials-self-resume'
