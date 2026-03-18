@@ -101,7 +101,7 @@ pipeline {
                                 docker push ${fullImage}
 
                                 # 4. 策略性推送 latest 标签
-                                if [ "${env.IS_RELEASE_BUILD}" == "true" ]; then
+                                if [ "${env.IS_RELEASE_BUILD}" = "true" ]; then
                                     echo "🏷️ 这是一个发布版本，更新 latest 标签..."
                                     docker tag ${fullImage} ${latestImage}
                                     docker push ${latestImage}
