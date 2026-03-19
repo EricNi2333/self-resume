@@ -41,7 +41,7 @@ export default async function OGImage() {
             Cloud BMS Engineer · EV &amp; ESS
           </span>
           <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
-            {["Python", "Go", "数据分析", "算法设计"].map(tag => (
+            {["Python", "Go", "Engineer", "Big Data"].map(tag => (
               <div key={tag} style={{
                 padding: "6px 18px", borderRadius: 8,
                 background: "#ebebea", color: "#444", fontSize: 22,
@@ -49,7 +49,7 @@ export default async function OGImage() {
             ))}
           </div>
           <span style={{ fontSize: 22, color: "#aaa", fontFamily: "monospace" }}>
-            专注于构建高性能、可扩展的 Web 应用，熟练掌握 React、Node.js 及云原生架构，曾主导多个千万级用户产品的技术设计与落地。
+            home.xiaoming.space
           </span>
         </div>
       </div>
