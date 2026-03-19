@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "小明 · XiaoMing — Senior Full-Stack Engineer",
   description: "小明的个人简历 / Resume of XiaoMing",
-  metadataBase: new URL("https://resume.niconi.space:8443"),
+  metadataBase: new URL("https://resume.xiaoming.space"),
   icons: {
     icon: "/favicons/favicon.svg",
     apple: "/favicons/apple-touch-icon.png",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "小明 · XiaoMing — Senior Full-Stack Engineer",
     description: "小明的个人简历 / Resume of XiaoMing",
-    url: "https://resume.niconi.space:8443",
+    url: "https://resume.xiaoming.space",
     siteName: "XiaoMing Resume",
     locale: "zh_CN",
     type: "profile",
