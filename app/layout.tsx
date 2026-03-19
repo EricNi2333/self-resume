@@ -16,11 +16,19 @@ export const metadata: Metadata = {
     siteName: "XiaoMing Resume",
     locale: "zh_CN",
     type: "profile",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "小明 · XiaoMing — Senior Full-Stack Engineer",
     description: "小明的个人简历 / Resume of XiaoMing",
+    images: ["/opengraph-image"],
   },
 };
 
