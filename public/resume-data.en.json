@@ -1,0 +1,142 @@
+{
+  "name": "XiaoMing",
+  "avatar": "/avatar.jpg",
+  "title": "Senior Full-Stack Engineer",
+  "tagline": "Focused on building high-performance, scalable web applications. Proficient in React, Node.js and cloud-native architecture. Led technical design and delivery of multiple products serving tens of millions of users.",
+  "location": "Shanghai, China",
+  "email": "example.zhang@example.com",
+  "phone": "+86 138 0000 0000",
+  "wechat": "example",
+  "website": "https://github.com",
+  "linkedin": "linkedin.com/in/",
+  "github": "github.com/",
+  "summary": "Full-stack engineer with 8 years of experience building high-performance, scalable web applications. Proficient in React, Node.js and cloud-native architecture. Led technical design and delivery of multiple products serving tens of millions of users. Passionate about engineering efficiency and technical team building.",
+  "experience": [
+    {
+      "company": "ByteDance",
+      "title": "Senior Software Engineer",
+      "location": "Shanghai",
+      "employmentType": "Full-Time",
+      "startDate": "Mar 2021",
+      "endDate": "Present",
+      "current": true,
+      "description": [
+        "Led the frontend architecture upgrade of Douyin e-commerce platform, reducing first-screen load time from 3.2s to 0.8s and improving user retention by 23%.",
+        "Led a team of 5 to design and implement a micro-frontend architecture supporting 40+ business teams to release independently, improving release efficiency by 60%.",
+        "Built a frontend performance monitoring system covering Core Web Vitals, identifying and fixing 200+ performance bottlenecks.",
+        "Drove TypeScript coverage from 30% to 95%, reducing production bug rate by 40%."
+      ],
+      "technologies": ["React", "TypeScript", "Node.js", "Webpack", "Redis", "MySQL"]
+    },
+    {
+      "company": "Meituan",
+      "title": "Frontend Engineer",
+      "location": "Beijing",
+      "employmentType": "Full-Time",
+      "startDate": "Jun 2018",
+      "endDate": "Feb 2021",
+      "description": [
+        "Contributed to the React Native rewrite of Meituan Takeaway C-side app, serving 150M DAU, reducing crash rate by 55%.",
+        "Independently designed and built a visual page builder enabling operations staff to configure campaign pages with zero code, reducing development requests by 70%.",
+        "Optimized the order detail page critical rendering path, reducing P99 API response time from 800ms to 200ms.",
+        "Participated in technical sharing and code review; mentored 6 junior engineers."
+      ],
+      "technologies": ["React Native", "Vue.js", "Python", "Elasticsearch", "Docker"]
+    },
+    {
+      "company": "Alibaba (Internship)",
+      "title": "Frontend Developer Intern",
+      "location": "Hangzhou",
+      "employmentType": "Internship",
+      "startDate": "Jul 2017",
+      "endDate": "May 2018",
+      "description": [
+        "Contributed to the A/B testing platform for Taobao product detail pages, supporting 100+ concurrent experiments.",
+        "Developed data visualization dashboards with ECharts rendering optimizations supporting real-time rendering of tens of thousands of data points."
+      ],
+      "technologies": ["JavaScript", "ECharts", "Java Spring", "Ant Design"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Shanghai Jiao Tong University",
+      "degree": "Bachelor of Engineering",
+      "field": "Computer Science and Technology",
+      "location": "Shanghai",
+      "startDate": "Sep 2013",
+      "endDate": "Jun 2017",
+      "gpa": "3.8 / 4.0",
+      "honors": "Outstanding Graduate",
+      "patents": [
+        {
+          "authors": "XX; XX, et al.",
+          "title": "Patent title.",
+          "number": "CNxxxxxxxxxx",
+          "status": "Granted"
+        }
+      ],
+      "papers": [
+        {
+          "authors": "XX; XX, et al.",
+          "title": "Paper title.",
+          "journal": "Journal of XXXX, Volume XX, Part A, 2026",
+          "doi": "https://doi.org/",
+          "note": "JCR Q1, IF = 19.40"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Frontend",
+      "items": ["React", "Next.js", "TypeScript", "Vue 3", "React Native", "Tailwind CSS", "Webpack / Vite"]
+    },
+    {
+      "category": "Backend",
+      "items": ["Node.js", "Python", "Java Spring Boot", "GraphQL", "RESTful API", "gRPC"]
+    },
+    {
+      "category": "Database & Storage",
+      "items": ["MySQL", "PostgreSQL", "Redis", "MongoDB", "Elasticsearch"]
+    },
+    {
+      "category": "Cloud Native & DevOps",
+      "items": ["Docker", "Kubernetes", "AWS", "CI/CD", "Nginx", "Prometheus"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Open-source UI Library: Seawind UI",
+      "description": "Enterprise-grade component library built with React + Tailwind, offering 60+ high-quality components. 2.3k GitHub stars, adopted by multiple startups.",
+      "url": "github.com/",
+      "technologies": ["React", "TypeScript", "Storybook", "Rollup"]
+    },
+    {
+      "name": "AI Resume Generator",
+      "description": "GPT-4-powered smart resume optimizer supporting PDF parsing, content optimization, and one-click export. 5,000+ monthly active users.",
+      "url": "github.com/",
+      "technologies": ["Next.js", "OpenAI API", "PostgreSQL", "Vercel"]
+    }
+  ],
+  "awards": [
+    { "name": "National 2nd Prize — 19th China Graduate Mathematical Modeling Contest (\"Huawei Cup\")", "date": "2023" },
+    { "name": "Outstanding Graduate Student of the Year" },
+    { "name": "National Scholarship", "date": "2023" }
+  ],
+  "languages": [
+    { "name": "Chinese", "proficiency": "Native" },
+    { "name": "English", "proficiency": "Professional Working (CET-6: 620)" }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Solutions Architect – Associate",
+      "issuer": "Amazon Web Services",
+      "date": "Apr 2023"
+    },
+    {
+      "name": "Google Cloud Professional Data Engineer",
+      "issuer": "Google Cloud",
+      "date": "Nov 2022"
+    }
+  ]
+}

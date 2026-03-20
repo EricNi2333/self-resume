@@ -1,0 +1,16 @@
+services:
+  resume:
+    image: self-resume:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: self-resume
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+
+    volumes:
+      - ./public:/app/public:ro

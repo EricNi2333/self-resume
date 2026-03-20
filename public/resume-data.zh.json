@@ -1,0 +1,142 @@
+{
+  "name": "XiaoMing",
+  "avatar": "/avatar.jpg",
+  "title": "高级全栈工程师",
+  "tagline": "专注于构建高性能、可扩展的 Web 应用，熟练掌握 React、Node.js 及云原生架构，曾主导多个千万级用户产品的技术设计与落地。",
+  "location": "上海，中国",
+  "email": "example.zhang@example.com",
+  "phone": "+86 138 0000 0000",
+  "wechat": "example",
+  "website": "https://github.com",
+  "linkedin": "linkedin.com/in/",
+  "github": "github.com/",
+  "summary": "拥有 8 年全栈开发经验的工程师，专注于构建高性能、可扩展的 Web 应用。熟练掌握 React、Node.js 及云原生架构，曾主导多个千万级用户产品的技术设计与落地。热衷于工程效能提升与技术团队建设。",
+  "experience": [
+    {
+      "company": "字节跳动",
+      "title": "高级软件工程师",
+      "location": "上海",
+      "employmentType": "Full-Time",
+      "startDate": "2021年3月",
+      "endDate": "至今",
+      "current": true,
+      "description": [
+        "主导抖音电商中台前端架构升级，将页面首屏加载时间从 3.2s 优化至 0.8s，用户留存率提升 23%。",
+        "带领 5 人团队设计并落地微前端架构方案，支撑 40+ 业务团队独立发布，发布效率提升 60%。",
+        "建立前端性能监控体系，覆盖 Core Web Vitals 核心指标，识别并修复 200+ 性能瓶颈。",
+        "推动团队 TypeScript 覆盖率从 30% 提升至 95%，线上 Bug 率下降 40%。"
+      ],
+      "technologies": ["React", "TypeScript", "Node.js", "Webpack", "Redis", "MySQL"]
+    },
+    {
+      "company": "美团",
+      "title": "前端工程师",
+      "location": "北京",
+      "employmentType": "Full-Time",
+      "startDate": "2018年6月",
+      "endDate": "2021年2月",
+      "description": [
+        "参与美团外卖 C 端 React Native 重构项目，覆盖 1.5 亿日活用户，崩溃率降低 55%。",
+        "独立设计开发可视化搭建平台，支持运营同学零代码配置活动页面，降低研发需求量 70%。",
+        "优化订单详情页关键渲染链路，接口 P99 响应时间从 800ms 降至 200ms。",
+        "参与团队技术分享与代码评审，新人培训 6 名初级工程师。"
+      ],
+      "technologies": ["React Native", "Vue.js", "Python", "Elasticsearch", "Docker"]
+    },
+    {
+      "company": "阿里巴巴（实习）",
+      "title": "前端开发实习生",
+      "location": "杭州",
+      "employmentType": "Internship",
+      "startDate": "2017年7月",
+      "endDate": "2018年5月",
+      "description": [
+        "参与淘宝详情页 A/B 实验平台开发，支持 100+ 并发实验。",
+        "完成数据可视化大屏开发，ECharts 渲染性能优化，支持万级数据点实时渲染。"
+      ],
+      "technologies": ["JavaScript", "ECharts", "Java Spring", "Ant Design"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "上海交通大学",
+      "degree": "工学学士",
+      "field": "计算机科学与技术",
+      "location": "上海",
+      "startDate": "2013年9月",
+      "endDate": "2017年6月",
+      "gpa": "3.8 / 4.0",
+      "honors": "优秀毕业生",
+      "patents": [
+        {
+          "authors": "XX; XX, et al.",
+          "title": "Patent title.",
+          "number": "CNxxxxxxxxxx",
+          "status": "授权"
+        }
+      ],
+      "papers": [
+        {
+          "authors": "XX; XX, et al.",
+          "title": "Paper title.",
+          "journal": "Journal of XXXX, Volume XX, Part A, 2026",
+          "doi": "https://doi.org/",
+          "note": "JCR Q1, IF = 19.40"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "前端开发",
+      "items": ["React", "Next.js", "TypeScript", "Vue 3", "React Native", "Tailwind CSS", "Webpack / Vite"]
+    },
+    {
+      "category": "后端开发",
+      "items": ["Node.js", "Python", "Java Spring Boot", "GraphQL", "RESTful API", "gRPC"]
+    },
+    {
+      "category": "数据库与存储",
+      "items": ["MySQL", "PostgreSQL", "Redis", "MongoDB", "Elasticsearch"]
+    },
+    {
+      "category": "云原生与 DevOps",
+      "items": ["Docker", "Kubernetes", "AWS", "CI/CD", "Nginx", "Prometheus"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "开源组件库 Seawind UI",
+      "description": "基于 React + Tailwind 的企业级组件库，提供 60+ 高质量组件，GitHub Star 2.3k，被多家创业公司采用。",
+      "url": "github.com/",
+      "technologies": ["React", "TypeScript", "Storybook", "Rollup"]
+    },
+    {
+      "name": "AI 简历生成器",
+      "description": "基于 GPT-4 的智能简历优化工具，支持 PDF 解析、内容优化与一键导出，月活用户 5000+。",
+      "url": "github.com/",
+      "technologies": ["Next.js", "OpenAI API", "PostgreSQL", "Vercel"]
+    }
+  ],
+  "awards": [
+    { "name": "「中国光谷·华为杯」第十九届中国研究生数学建模竞赛全国二等奖", "date": "2023" },
+    { "name": "校优秀研究生标兵" },
+    { "name": "国家奖学金", "date": "2023" }
+  ],
+  "languages": [
+    { "name": "中文", "proficiency": "母语" },
+    { "name": "英文", "proficiency": "专业工作水平 (CET-6: 620)" }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Solutions Architect - Associate",
+      "issuer": "Amazon Web Services",
+      "date": "2023年4月"
+    },
+    {
+      "name": "Google Cloud Professional Data Engineer",
+      "issuer": "Google Cloud",
+      "date": "2022年11月"
+    }
+  ]
+}

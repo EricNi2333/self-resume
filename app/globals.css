@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light theme (default) ── */
+:root {
+  --bg-page:       #ffffff;
+  --bg-resume:     #ffffff;
+  --text-primary:  #111111;
+  --text-secondary:#444444;
+  --text-muted:    #6b7280;
+  --text-faint:    #9ca3af;
+  --border:        #e5e7eb;
+  --border-strong: #111111;
+  --tag-bg:        #f3f4f6;
+  --tag-border:    #e5e7eb;
+  --tag-text:      #1f2937;
+  --badge-bg:      #6b7280;
+  --badge-text:    #ffffff;
+  --link:          #1a56db;
+  --icon-bg:       #f9fafb;
+  --icon-border:   #d1d5db;
+  --icon-color:    #555555;
+  --toolbar-btn-active-bg:    #111111;
+  --toolbar-btn-active-text:  #ffffff;
+  --toolbar-btn-idle-bg:      #ffffff;
+  --toolbar-btn-idle-text:    #555555;
+  --toolbar-btn-border:       #d1d5db;
+  --resume-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  --green-bg:      #ecfdf5;
+  --green-border:  #6ee7b7;
+  --green-text:    #059669;
+}
+
+/* ── Dark vars (reused by both media-query and [data-theme="dark"]) ── */
+.dark-vars {
+  --bg-page:       #0f1117;
+  --bg-resume:     #1a1d27;
+  --text-primary:  #f0f0f0;
+  --text-secondary:#c0c0c0;
+  --text-muted:    #9ca3af;
+  --text-faint:    #6b7280;
+  --border:        #2d3141;
+  --border-strong: #e0e0e0;
+  --tag-bg:        #252836;
+  --tag-border:    #343748;
+  --tag-text:      #d1d5db;
+  --badge-bg:      #4b5563;
+  --badge-text:    #f3f4f6;
+  --link:          #60a5fa;
+  --icon-bg:       #252836;
+  --icon-border:   #374151;
+  --icon-color:    #9ca3af;
+  --toolbar-btn-active-bg:    #f0f0f0;
+  --toolbar-btn-active-text:  #111111;
+  --toolbar-btn-idle-bg:      #1e2130;
+  --toolbar-btn-idle-text:    #9ca3af;
+  --toolbar-btn-border:       #374151;
+  --resume-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  --green-bg:      #052e16;
+  --green-border:  #166534;
+  --green-text:    #4ade80;
+}
+
+/* ── System dark preference (no manual override) ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-page:       #0f1117;
+    --bg-resume:     #1a1d27;
+    --text-primary:  #f0f0f0;
+    --text-secondary:#c0c0c0;
+    --text-muted:    #9ca3af;
+    --text-faint:    #6b7280;
+    --border:        #2d3141;
+    --border-strong: #e0e0e0;
+    --tag-bg:        #252836;
+    --tag-border:    #343748;
+    --tag-text:      #d1d5db;
+    --badge-bg:      #4b5563;
+    --badge-text:    #f3f4f6;
+    --link:          #60a5fa;
+    --icon-bg:       #252836;
+    --icon-border:   #374151;
+    --icon-color:    #9ca3af;
+    --toolbar-btn-active-bg:    #f0f0f0;
+    --toolbar-btn-active-text:  #111111;
+    --toolbar-btn-idle-bg:      #1e2130;
+    --toolbar-btn-idle-text:    #9ca3af;
+    --toolbar-btn-border:       #374151;
+    --resume-shadow: 0 2px 24px rgba(0,0,0,0.4);
+    --green-bg:      #052e16;
+    --green-border:  #166534;
+    --green-text:    #4ade80;
+  }
+}
+
+/* ── Manual dark override ── */
+[data-theme="dark"] {
+  --bg-page:       #0f1117;
+  --bg-resume:     #1a1d27;
+  --text-primary:  #f0f0f0;
+  --text-secondary:#c0c0c0;
+  --text-muted:    #9ca3af;
+  --text-faint:    #6b7280;
+  --border:        #2d3141;
+  --border-strong: #e0e0e0;
+  --tag-bg:        #252836;
+  --tag-border:    #343748;
+  --tag-text:      #d1d5db;
+  --badge-bg:      #4b5563;
+  --badge-text:    #f3f4f6;
+  --link:          #60a5fa;
+  --icon-bg:       #252836;
+  --icon-border:   #374151;
+  --icon-color:    #9ca3af;
+  --toolbar-btn-active-bg:    #f0f0f0;
+  --toolbar-btn-active-text:  #111111;
+  --toolbar-btn-idle-bg:      #1e2130;
+  --toolbar-btn-idle-text:    #9ca3af;
+  --toolbar-btn-border:       #374151;
+  --resume-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  --green-bg:      #052e16;
+  --green-border:  #166534;
+  --green-text:    #4ade80;
+}
+
+html, body {
+  background: var(--bg-page);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.2s;
+}
+
+/* ── Toolbar ── */
+.toolbar-wrap {
+  max-width: 210mm;
+  margin: 0 auto 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── A4 page (screen preview) ── */
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--bg-resume);
+  margin: 0 auto;
+  padding: 14mm 16mm;
+  box-sizing: border-box;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: var(--text-primary);
+  border-radius: 12px;
+  box-shadow: var(--resume-shadow);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Section title */
+.section-title {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 1.5px solid var(--border-strong);
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+  margin-top: 18px;
+}
+
+/* No page-break inside a single item */
+.no-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* ── Mobile responsive ── */
+@media (max-width: 740px) {
+  .toolbar-wrap {
+    max-width: 100%;
+  }
+
+  .a4-page {
+    width: 100%;
+    min-height: unset;
+    border-radius: 8px;
+    padding: 20px 16px 28px;
+    font-size: 9pt;
+  }
+
+  .section-title {
+    font-size: 11.5pt;
+  }
+}
+
+/* ── Print styles ── */
+@media print {
+  html, body {
+    background: white !important;
+    height: auto !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .a4-page {
+    width: 100% !important;
+    min-height: unset !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 14mm 16mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+    color: #111 !important;
+  }
+
+  .section-title {
+    margin-top: 14px;
+    color: #111 !important;
+    border-bottom-color: #111 !important;
+  }
+
+  .skill-label {
+    color: #6b7280 !important;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
