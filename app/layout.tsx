@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "XiaoMing — Senior Full-Stack Engineer",
-  description: "XiaoMing 的个人简历 / Resume of XiaoMing",
+  description: "XiaoMing's Resume",
   metadataBase: new URL("https://resume.xiaoming.space"),
   icons: {
     icon: "/favicons/favicon.svg",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "XiaoMing — Senior Full-Stack Engineer",
-    description: "XiaoMing 的个人简历 / Resume of XiaoMing",
+    description: "XiaoMing's Resume",
     url: "https://resume.xiaoming.space",
     siteName: "XiaoMing Resume",
     locale: "zh_CN",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "XiaoMing — Senior Full-Stack Engineer",
-    description: "XiaoMing 的个人简历 / Resume of XiaoMing",
+    description: "XiaoMing's Resume",
   },
 };
 

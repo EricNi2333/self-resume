@@ -18,7 +18,6 @@ export default async function OGImage() {
           padding: "0 80px",
         }}
       >
-        {/* 背景装饰：极简工程感网格 */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.03, backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
         <div
@@ -34,7 +33,6 @@ export default async function OGImage() {
             position: "relative",
           }}
         >
-          {/* 左侧：Favicon 样式图标 */}
           <div
             style={{
               width: 160,
@@ -53,7 +51,6 @@ export default async function OGImage() {
             <div style={{ width: 80, height: 8,  borderRadius: 3, background: "#fff", opacity: 0.35 }} />
           </div>
 
-          {/* 右侧：信息区 */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ fontSize: 72, fontWeight: 800, color: "#1c1917", letterSpacing: "-0.02em", lineHeight: 1 }}>
               Xiao Ming
@@ -63,7 +60,6 @@ export default async function OGImage() {
               Cloud BMS Engineer <span style={{ color: "#a8a29e", margin: "0 10px" }}>|</span> ShangHai
             </span>
 
-            {/* 标签组 */}
             <div style={{ display: "flex", gap: 12, marginTop: 32 }}>
               {["Python", "Go", "BigData", "Agent"].map((tag) => (
                 <div
@@ -82,7 +78,6 @@ export default async function OGImage() {
               ))}
             </div>
 
-            {/* 底部 URL 装饰 */}
             <div style={{ display: "flex", alignItems: "center", marginTop: 48, gap: 12 }}>
               <div style={{ height: 2, flex: 1, background: "linear-gradient(to right, #e7e5e4, transparent)" }} />
               <span style={{ fontSize: 22, color: "#78716c", fontFamily: "monospace", fontWeight: 500 }}>
