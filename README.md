@@ -1,6 +1,8 @@
-# 📄 Resume Site
+# 📄 Self Resume
 
-参考 [self.so](https://github.com/nutlope/self.so) 风格设计的个人简历网站，支持中英双语切换、亮/暗主题，本地部署开箱即用。
+个人简历网站，支持中英双语切换、亮/暗主题，本地部署开箱即用。
+
+<img src="/readme/self-resume.png" alt="Self-resume Preview" />
 
 ## ✨ 特性
 
@@ -9,9 +11,7 @@
 - 📱 **移动端适配**：小屏自动切换为全宽布局，字号与内边距自适应
 - 🎨 **A4 排版**：精准还原 PDF 简历版式，打印输出干净无页眉页脚
 - 📋 **完整简历结构**：工作经历、教育（含专利/论文）、技能分类、项目、奖项、证书
-- ⚡ **Next.js 14 App Router** + TypeScript
-- 💅 **Tailwind CSS** + Noto Sans SC 字体
-- 🐳 **Docker 支持**：配套 docker-compose 与 GitHub Actions CI/CD
+- 🐳 **Docker 支持**：配套 Dockerfile与docker-compose.yml
 
 ## 🚀 快速开始
 
@@ -24,7 +24,7 @@
 
 ```bash
 # 克隆或解压项目
-cd resume-site
+cd self-resume
 
 # 安装依赖
 pnpm install
@@ -169,19 +169,19 @@ resume-site/
 ├── app/
 │   ├── globals.css          # 全局样式、CSS 变量（亮/暗/系统主题）、移动端、打印样式
 │   ├── layout.tsx           # 根布局，加载字体
+│   ├── opengraph-image.tsx  # OG Card
 │   └── page.tsx             # 首页：语言切换、主题切换、渲染简历
 ├── components/
 │   └── Resume.tsx           # 简历核心组件（所有区块）
 ├── lib/
 │   └── types.ts             # TypeScript 类型定义
 ├── public/
+│   ├── favicons             # favicon
 │   ├── resume-data.zh.json  # 中文简历数据 ← 在这里填写你的信息
 │   ├── resume-data.en.json  # 英文简历数据 ← 英文版在这里
 │   └── avatar.jpg           # 1寸照片（自行添加，可选）
 ├── Dockerfile               # 双阶段构建
 ├── docker-compose.yml       # 本地/服务器部署
-├── .github/workflows/
-│   └── deploy.yml           # GitHub Actions CI/CD
 ├── package.json
 ├── tailwind.config.ts
 ├── tsconfig.json
@@ -221,7 +221,7 @@ services:
 
 ```yaml
 ports:
-  - "8080:3000"   # 改左侧数字即可
+  - "3000:3000"   # 改左侧数字即可
 ```
 
 ### GitHub Actions 自动部署

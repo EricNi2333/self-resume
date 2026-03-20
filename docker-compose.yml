@@ -1,23 +1,16 @@
 services:
   resume:
-    image: self-resume:0.0.1
+    image: self-resume:latest
     build:
       context: .
       dockerfile: Dockerfile
     container_name: self-resume
     restart: unless-stopped
     ports:
-      - "3006:3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
 
     volumes:
       - ./public:/app/public:ro
-
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
