@@ -13,6 +13,7 @@ dist
 
 # Documentation and configs
 *.md
+readme
 README.md
 LICENSE
 .editorconfig
