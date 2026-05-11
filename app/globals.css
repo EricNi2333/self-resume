@@ -197,6 +197,31 @@ html, body {
 
 /* ── Print styles ── */
 @media print {
+  :root,
+  :root:not([data-theme="light"]),
+  [data-theme="dark"] {
+    --bg-page:       #ffffff;
+    --bg-resume:     #ffffff;
+    --text-primary:  #111111;
+    --text-secondary:#444444;
+    --text-muted:    #6b7280;
+    --text-faint:    #9ca3af;
+    --border:        #e5e7eb;
+    --border-strong: #111111;
+    --tag-bg:        #f3f4f6;
+    --tag-border:    #e5e7eb;
+    --tag-text:      #1f2937;
+    --badge-bg:      #6b7280;
+    --badge-text:    #ffffff;
+    --link:          #1a56db;
+    --icon-bg:       #f9fafb;
+    --icon-border:   #d1d5db;
+    --icon-color:    #555555;
+    --green-bg:      #ecfdf5;
+    --green-border:  #6ee7b7;
+    --green-text:    #059669;
+  }
+
   html, body {
     background: white !important;
     height: auto !important;
@@ -204,35 +229,101 @@ html, body {
     -webkit-print-color-adjust: exact;
   }
 
+  .page-shell {
+    min-height: auto !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
   .no-print {
     display: none !important;
   }
 
   .a4-page {
-    width: 100% !important;
+    width: auto !important;
     min-height: unset !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 14mm 16mm !important;
+    padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
     background: white !important;
     color: #111 !important;
+    overflow: visible !important;
   }
 
   .section-title {
-    margin-top: 14px;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    padding-bottom: 2px;
     color: #111 !important;
     border-bottom-color: #111 !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .section-title + div {
+    break-before: avoid;
+    page-break-before: avoid;
   }
 
   .skill-label {
     color: #6b7280 !important;
   }
+
+  .skill-row {
+    margin-bottom: 7px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .skill-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .skill-tags {
+    row-gap: 5px !important;
+    column-gap: 6px !important;
+  }
+
+  .skill-tags > span {
+    line-height: 1.35 !important;
+    padding: 1px 8px !important;
+  }
+
+  .skills-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  section {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  header,
+  .no-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  section > .section-title + div {
+    display: block !important;
+  }
+
+  section > .section-title + div > .no-break:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }
 
 @page {
   size: A4;
-  margin: 0;
+  margin: 10mm 13mm;
 }

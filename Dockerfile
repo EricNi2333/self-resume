@@ -32,6 +32,10 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Chromium is used by the PDF export API.
+RUN apk add --no-cache chromium
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs \

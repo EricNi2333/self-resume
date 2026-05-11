@@ -19,9 +19,9 @@ const iconBox: React.CSSProperties = {
 };
 
 const LABELS = {
-  zh: { about:"About", work:"Work Experience", education:"Education",
-        skills:"Skills", projects:"Projects", awards:"Awards & Honors",
-        certs:"Certifications", lang:"Languages", patents:"专利", papers:"发表论文" },
+  zh: { about:"关于", work:"工作经验", education:"教育经历",
+        skills:"技能", projects:"项目经历", awards:"荣誉证书",
+        certs:"技能证书", lang:"语言", patents:"专利", papers:"发表论文" },
   en: { about:"About", work:"Work Experience", education:"Education",
         skills:"Skills", projects:"Projects", awards:"Awards & Honors",
         certs:"Certifications", lang:"Languages", patents:"Patents", papers:"Publications" },
@@ -240,7 +240,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
                           <span style={{ color:iv("--text-faint"), flexShrink:0, marginTop:"1px" }}>›</span>
                           <span>
                             <span style={{ color:iv("--text-muted") }}>{p.authors} </span>
-                            <em>{p.title}</em>
+                            <span>{p.title}</span>
                             {" "}<span style={{ color:iv("--text-secondary") }}>{p.journal}.</span>
                             {p.doi && (
                               <a href={p.doi} target="_blank" rel="noopener noreferrer"
@@ -267,9 +267,9 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
 
       {/* ══ SKILLS ══ */}
       {data.skills?.length > 0 && (
-        <section className="no-break">
+        <section className="skills-section">
           <div className="section-title">{L.skills}</div>
-          <div style={{ display:"flex", flexDirection:"column", gap:"7px" }}>
+          <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
             {data.skills.map((cat) => {
               /*
                * Justify-align pure-CJK labels so every label's right edge
@@ -280,7 +280,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
               const isMixed = /[A-Za-z0-9&+/]/.test(cat.category);
               const labelW = lang === "en" ? "148px" : "108px";
               return (
-                <div key={cat.category} style={{ display:"flex", alignItems:"flex-start" }}>
+                <div key={cat.category} className="skill-row" style={{ display:"flex", alignItems:"flex-start" }}>
                   {/* Category label — fixed width, justified for pure-CJK */}
                   <span
                     className="skill-label"
@@ -296,7 +296,7 @@ export function Resume({ data, lang = "zh" }: ResumeProps) {
                     {cat.category}
                   </span>
                   {/* Tags */}
-                  <div style={{ flex:1, display:"flex", flexWrap:"wrap", gap:"4px", alignContent:"flex-start" }}>
+                  <div className="skill-tags" style={{ flex:1, display:"flex", flexWrap:"wrap", gap:"6px 7px", alignContent:"flex-start" }}>
                     {cat.items.map((skill) => (
                       <span key={skill} style={{
                         fontSize:"8.5pt", color:iv("--tag-text"),

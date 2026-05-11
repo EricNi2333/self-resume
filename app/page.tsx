@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ResumeData } from "@/lib/types";
 import { Resume } from "@/components/Resume";
+import { Download } from "lucide-react";
 
 type Lang  = "zh" | "en";
 type Theme = "system" | "light" | "dark";
@@ -11,11 +12,18 @@ export default function Home() {
   const [lang,       setLang]       = useState<Lang>("zh");
   const [theme,      setTheme]      = useState<Theme>("system");
   const [systemDark, setSystemDark] = useState(false);
+  const [exporting,  setExporting]  = useState(false);
   const [zhData,     setZhData]     = useState<ResumeData | null>(null);
   const [enData,     setEnData]     = useState<ResumeData | null>(null);
 
   /* ── Fetch resume data from public/ (edit JSON without rebuilding) ── */
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get("lang");
+    if (urlLang === "zh" || urlLang === "en") {
+      setLang(urlLang);
+    }
+
     fetch("/resume-data.zh.json").then(r => r.json()).then(setZhData);
     fetch("/resume-data.en.json").then(r => r.json()).then(setEnData);
   }, []);
@@ -45,6 +53,31 @@ export default function Home() {
   const cycleTheme = () =>
     setTheme(t => t === "system" ? "light" : t === "light" ? "dark" : "system");
 
+  const exportPdf = async () => {
+    try {
+      setExporting(true);
+      const response = await fetch(`/api/export-pdf?lang=${lang}`);
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${data?.name || "resume"}-${lang}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      window.print();
+    } finally {
+      setExporting(false);
+    }
+  };
+
   const themeLabel = (l: Lang) => {
     if (theme === "system") return l === "zh" ? "跟随系统" : "System";
     if (theme === "light")  return l === "zh" ? "白天"     : "Light";
@@ -64,10 +97,25 @@ export default function Home() {
   });
 
   return (
-    <main style={{ background: "var(--bg-page)", minHeight: "100vh", padding: "40px 16px 60px", transition: "background 0.2s" }}>
+    <main className="page-shell" style={{ background: "var(--bg-page)", minHeight: "100vh", padding: "40px 16px 60px", transition: "background 0.2s" }}>
 
       {/* ── Toolbar ── */}
       <div className="no-print toolbar-wrap">
+
+        {/* PDF export */}
+        <button onClick={exportPdf} disabled={exporting || !data} title="Export PDF" style={{
+          display: "flex", alignItems: "center", gap: "6px",
+          fontSize: "12px", fontWeight: 500,
+          color: exporting ? "var(--text-faint)" : "var(--toolbar-btn-idle-text)",
+          background: "var(--toolbar-btn-idle-bg)",
+          border: "1px solid var(--toolbar-btn-border)",
+          borderRadius: "6px", padding: "5px 14px", cursor: exporting ? "wait" : "pointer",
+          opacity: exporting || !data ? 0.7 : 1,
+          fontFamily: "system-ui, sans-serif", transition: "background 0.15s, color 0.15s",
+        }}>
+          <Download size={14} />
+          {exporting ? (lang === "zh" ? "导出中" : "Exporting") : "PDF"}
+        </button>
 
         {/* Theme toggle */}
         <button onClick={cycleTheme} title={themeLabel(lang)} style={{
