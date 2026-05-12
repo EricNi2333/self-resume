@@ -1,262 +1,299 @@
-# 📄 Self Resume
+# Self Resume
 
-个人简历网站，支持中英双语切换、亮/暗主题，本地部署开箱即用。
+一个基于 Next.js 的个人简历网站模板，支持中英文双语、亮色/暗色主题、A4 打印排版、浏览器 PDF 导出和 Docker 部署。
 
-<img src="/readme/self-resume.png" alt="Self-resume Preview" />
+<img src="/readme/self-resume.png" alt="Self Resume Preview" />
 
-## ✨ 特性
+## 功能特性
 
-- 🌍 **中英双语**：一键切换中文/英文简历，数据独立维护
-- 🌙 **主题跟随系统**：默认跟随 `prefers-color-scheme`，可手动切换白天/夜晚
-- 📱 **移动端适配**：小屏自动切换为全宽布局，字号与内边距自适应
-- 🎨 **A4 排版**：精准还原 PDF 简历版式，打印输出干净无页眉页脚
-- 📋 **完整简历结构**：工作经历、教育（含专利/论文）、技能分类、项目、奖项、证书
-- 🐳 **Docker 支持**：配套 Dockerfile与docker-compose.yml
+- 中英文双语：通过 `?lang=zh` / `?lang=en` 或页面按钮切换，数据分别维护在两份 JSON 中。
+- 运行时读取简历数据：客户端从 `public/resume-data.zh.json` 和 `public/resume-data.en.json` 拉取数据，修改 JSON 后刷新页面即可看到结果。
+- 主题切换：默认跟随系统 `prefers-color-scheme`，也可以手动切换亮色和暗色。
+- A4 简历版式：页面预览按 A4 尺寸排版，并提供打印样式。
+- PDF 导出：页面按钮调用 `/api/export-pdf`，使用本机 Chrome / Edge / Chromium 的 headless 打印能力生成 PDF；失败时回退到浏览器打印。
+- Docker 支持：提供多阶段 `Dockerfile` 和 `docker-compose.yml`，生产镜像使用 Next.js standalone 输出，并内置 Chromium 供 PDF 导出使用。
+- SEO / 分享图：包含 favicon、manifest、Open Graph metadata 和动态 `opengraph-image.tsx`。
 
-## 🚀 快速开始
+## 技术栈
 
-### 前置要求
+- Next.js `16.2.6`
+- React `19.2.6`
+- TypeScript
+- Tailwind CSS `3.4`
+- ESLint `9`
+- pnpm
+- lucide-react
 
-- Node.js 18+
-- pnpm（推荐）
+## 快速开始
 
-### 安装与启动
+### 环境要求
+
+- Node.js 20+
+- pnpm
+
+### 本地开发
 
 ```bash
-# 克隆或解压项目
-cd self-resume
-
-# 安装依赖
 pnpm install
-
-# 启动开发服务器
 pnpm dev
 ```
 
-访问 http://localhost:3000 查看简历。
+访问 <http://localhost:3000> 查看页面。
 
-### 生产构建
+常用命令：
 
 ```bash
-pnpm build
-pnpm start
+pnpm dev      # 启动开发服务器
+pnpm build    # 生产构建
+pnpm start    # 启动生产服务
+pnpm lint     # ESLint 检查
 ```
 
-## ✏️ 修改简历内容
+## 修改简历内容
 
-简历数据以 JSON 文件形式存放在 `public/` 目录，**无需重新构建**即可生效：
+简历内容存放在 `public/` 目录：
 
 | 文件 | 说明 |
-|------|------|
+| --- | --- |
 | `public/resume-data.zh.json` | 中文简历数据 |
 | `public/resume-data.en.json` | 英文简历数据 |
+| `public/avatar.jpg` | 头像或一寸照，路径由 JSON 中的 `avatar` 字段引用 |
 
-两份文件共享同一套字段结构（见下方[数据结构说明](#-数据结构说明)），各自独立维护内容。
+两份 JSON 使用同一套字段结构。开发模式下修改后刷新页面即可生效；Docker 部署时如果保留 `./public:/app/public:ro` 挂载，也可以直接更新宿主机上的 JSON 和头像文件。
 
-> **Docker 部署用户**：将 `public/` 目录挂载为 volume，直接编辑 JSON 文件后刷新浏览器即可看到更改，无需 `docker compose up --build`。
-
-### 添加 1 寸照片
-
-将照片文件命名为 `avatar.jpg` 放入 `public/` 目录，然后在 JSON 数据中添加：
+头像示例：
 
 ```json
-"avatar": "/avatar.jpg"
-```
-
-## 📐 数据结构说明
-
-```ts
-ResumeData {
-  // ── 基本信息 ──────────────────────────────
-  name: string            // 姓名
-  title: string           // 职位头衔
-  tagline?: string        // 简短标语（显示在姓名下方）
-  avatar?: string         // 1寸照片路径，如 "/avatar.jpg"
-  location: string        // 所在城市
-
-  // ── 联系方式 ──────────────────────────────
-  email: string           // 邮箱（显示图标+文字，可点击）
-  phone?: string          // 手机（显示图标+文字）
-  wechat?: string         // 微信号（显示图标+文字）
-  website?: string        // 个人网站（仅显示图标，可点击）
-  linkedin?: string       // LinkedIn（仅显示图标）
-  github?: string         // GitHub（仅显示图标）
-
-  // ── 正文内容 ──────────────────────────────
-  summary: string         // About 段落
-  experience: Experience[]
-  education: Education[]
-  skills: SkillCategory[]
-  projects?: Project[]
-  awards?: Award[]
-  certifications?: Certification[]
-  languages?: Language[]
-}
-
-Experience {
-  company: string
-  title: string
-  location: string
-  employmentType?: string   // "Full-Time" | "Contract" | "Internship" 等
-  startDate: string
-  endDate: string
-  current?: boolean
-  description: string[]     // 工作内容，每条为一个字符串
-  technologies?: string[]   // 技术标签（可选）
-}
-
-Education {
-  institution: string
-  degree: string
-  field: string
-  location: string
-  startDate: string
-  endDate: string
-  gpa?: string
-  honors?: string
-  patents?: Patent[]        // 专利列表（可选）
-  papers?: Paper[]          // 发表论文列表（可选）
-}
-
-Patent {
-  authors: string           // 作者列表
-  title: string             // 专利名称
-  number?: string           // 专利号，如 "CN114791993B"
-  status: string            // "授权" | "公开" | "参与，授权" 等
-}
-
-Paper {
-  authors: string           // 作者列表
-  title: string             // 论文标题
-  journal: string           // 期刊/会议名称及卷期信息
-  doi?: string              // DOI 链接（可点击）
-  note?: string             // 期刊等级，如 "JCR Q1, IF = 9.40"
-}
-
-SkillCategory {
-  category: string          // 分类名（纯中文会自动两端对齐）
-  items: string[]           // 技能标签列表
-}
-
-Project {
-  name: string
-  description: string
-  url?: string              // 不含协议，如 "github.com/user/repo"
-  technologies?: string[]
-}
-
-Award {
-  name: string
-  date?: string
-}
-
-Certification {
-  name: string
-  issuer: string
-  date: string
-}
-
-Language {
-  name: string
-  proficiency: string       // "母语" | "专业工作水平" 等
+{
+  "avatar": "/avatar.jpg"
 }
 ```
 
-## 📁 项目结构
+## PDF 导出
 
-```
-resume-site/
-├── app/
-│   ├── globals.css          # 全局样式、CSS 变量（亮/暗/系统主题）、移动端、打印样式
-│   ├── layout.tsx           # 根布局，加载字体
-│   ├── opengraph-image.tsx  # OG Card
-│   └── page.tsx             # 首页：语言切换、主题切换、渲染简历
-├── components/
-│   └── Resume.tsx           # 简历核心组件（所有区块）
-├── lib/
-│   └── types.ts             # TypeScript 类型定义
-├── public/
-│   ├── favicons             # favicon
-│   ├── resume-data.zh.json  # 中文简历数据 ← 在这里填写你的信息
-│   ├── resume-data.en.json  # 英文简历数据 ← 英文版在这里
-│   └── avatar.jpg           # 1寸照片（自行添加，可选）
-├── Dockerfile               # 双阶段构建
-├── docker-compose.yml       # 本地/服务器部署
-├── package.json
-├── tailwind.config.ts
-├── tsconfig.json
-└── next.config.mjs
+页面顶部的 PDF 按钮会请求：
+
+```text
+/api/export-pdf?lang=zh
+/api/export-pdf?lang=en
 ```
 
-## 🐳 Docker 部署
-
-### 本地 Docker
+本地运行时需要机器上安装 Chrome、Edge 或 Chromium。也可以显式设置：
 
 ```bash
-# 构建并启动
+CHROME_EXECUTABLE_PATH=/path/to/chrome pnpm start
+# 或
+PUPPETEER_EXECUTABLE_PATH=/path/to/chromium pnpm start
+```
+
+Docker 镜像会安装 Alpine Chromium，并设置 `PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser`。
+
+## Docker 部署
+
+本地构建并启动：
+
+```bash
 docker compose up -d --build
+```
 
-# 访问
+访问：
+
+```text
 http://localhost:3000
+```
 
-# 停止
+停止服务：
+
+```bash
 docker compose down
 ```
 
-### 挂载数据目录（推荐）
-
-将 `public/` 挂载为 volume，修改 JSON 后无需重建镜像：
+当前 `docker-compose.yml` 会把宿主机 `./public` 只读挂载到容器的 `/app/public`：
 
 ```yaml
-# docker-compose.yml
-services:
-  resume:
-    volumes:
-      - ./public:/app/public
+volumes:
+  - ./public:/app/public:ro
 ```
 
-### 修改端口
+这意味着修改简历 JSON、头像、favicon 等静态资源后，通常只需要刷新页面，不需要重新构建镜像。修改应用代码、依赖或构建配置后才需要重新 build。
 
-编辑 `docker-compose.yml` 中的端口映射：
+## GitHub Actions 部署
 
-```yaml
-ports:
-  - "3000:3000"   # 改左侧数字即可
-```
+仓库包含 `.github/workflows/deploy.yml`，流程为：
 
-### GitHub Actions 自动部署
+1. 推送到 `main` 或手动触发 workflow。
+2. 构建 Docker 镜像并推送到 GitHub Container Registry。
+3. 通过 SSH 登录服务器，拉取最新镜像并执行 `docker compose up -d --no-build --pull never`。
 
-在仓库 **Settings → Secrets and variables → Actions** 中添加：
+需要在 GitHub 仓库的 `Settings -> Secrets and variables -> Actions` 中配置：
 
 | Secret | 说明 |
-|--------|------|
+| --- | --- |
 | `DEPLOY_HOST` | 服务器 IP 或域名 |
-| `DEPLOY_USER` | SSH 用户名（如 `ubuntu`） |
-| `DEPLOY_KEY` | SSH 私钥（PEM 格式） |
-| `DEPLOY_PORT` | SSH 端口，默认 `22`（可选） |
+| `DEPLOY_USER` | SSH 用户名 |
+| `DEPLOY_KEY` | SSH 私钥，PEM 格式 |
+| `DEPLOY_PORT` | SSH 端口，未配置时使用 `22` |
 
-推送到 `main` 分支后自动触发：构建镜像 → 推送到 GHCR → SSH 热更新服务器。
+注意：workflow 中会把 GHCR 镜像地址写入 `IMAGE` 环境变量。服务器上的 compose 文件需要引用该变量，例如 `image: ${IMAGE}`；如果仍使用本仓库当前的 `image: self-resume:latest`，需要按自己的部署方式调整 workflow 或 compose。
 
-## 🎨 自定义主题色
+## 项目结构
 
-所有颜色通过 CSS 变量管理，在 `app/globals.css` 的 `:root`（亮色）和 `[data-theme="dark"]`（暗色）中修改：
+```text
+self-resume/
+├─ app/
+│  ├─ api/export-pdf/route.ts   # PDF 导出接口
+│  ├─ globals.css               # 全局样式、主题变量、A4/打印样式
+│  ├─ layout.tsx                # 根布局与 metadata
+│  ├─ opengraph-image.tsx       # Open Graph 分享图
+│  └─ page.tsx                  # 服务端入口，读取 lang 参数
+├─ components/
+│  ├─ Resume.tsx                # 简历主体渲染组件
+│  └─ ResumePageClient.tsx      # 客户端数据加载、语言/主题/PDF 控制
+├─ lib/
+│  └─ types.ts                  # 简历数据 TypeScript 类型
+├─ public/
+│  ├─ favicons/                 # favicon 和 web manifest
+│  ├─ resume-data.zh.json       # 中文简历数据
+│  ├─ resume-data.en.json       # 英文简历数据
+│  └─ avatar.jpg                # 头像或一寸照
+├─ readme/
+│  └─ self-resume.png           # README 预览图
+├─ Dockerfile
+├─ docker-compose.yml
+├─ package.json
+├─ pnpm-lock.yaml
+├─ tailwind.config.ts
+├─ tsconfig.json
+└─ next.config.mjs
+```
 
-```css
-:root {
-  --text-primary:  #111111;   /* 主文字 */
-  --text-muted:    #6b7280;   /* 次要文字 */
-  --border:        #e5e7eb;   /* 分割线 */
-  --tag-bg:        #f3f4f6;   /* 技能标签背景 */
-  --link:          #1a56db;   /* 链接色 */
-  /* ... */
+## 数据结构
+
+核心字段定义位于 `lib/types.ts`。JSON 文件建议保持下面的结构：
+
+```ts
+interface ResumeData {
+  name: string;
+  title: string;
+  tagline?: string;
+  avatar?: string;
+  location: string;
+  email: string;
+  phone?: string;
+  wechat?: string;
+  website?: string;
+  linkedin?: string;
+  github?: string;
+  summary: string;
+  experience: Experience[];
+  education: Education[];
+  skills: SkillCategory[];
+  projects?: Project[];
+  languages?: Language[];
+  certifications?: Certification[];
+  awards?: Award[];
+}
+
+interface Experience {
+  company: string;
+  title: string;
+  location: string;
+  employmentType?: string;
+  startDate: string;
+  endDate: string;
+  current?: boolean;
+  description: string[];
+  technologies?: string[];
+}
+
+interface Education {
+  institution: string;
+  degree: string;
+  field: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  gpa?: string;
+  honors?: string;
+  courses?: string[];
+  patents?: Patent[];
+  papers?: Paper[];
+}
+
+interface Patent {
+  authors: string;
+  title: string;
+  number?: string;
+  status: string;
+}
+
+interface Paper {
+  authors: string;
+  title: string;
+  journal: string;
+  doi?: string;
+  note?: string;
+}
+
+interface SkillCategory {
+  category: string;
+  items: string[];
+}
+
+interface Project {
+  name: string;
+  description: string;
+  url?: string;
+  technologies?: string[];
+  startDate?: string;
+  endDate?: string;
+}
+
+interface Language {
+  name: string;
+  proficiency: string;
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+  url?: string;
+}
+
+interface Award {
+  name: string;
+  level?: string;
+  date?: string;
 }
 ```
 
-主题切换逻辑：
-- **跟随系统**（默认）：读取 `prefers-color-scheme`，系统切换时实时响应
-- **白天 / 夜晚**：手动覆盖，通过 `data-theme` attribute 写入 `<html>`
-- 工具栏按钮循环切换：**跟随系统 → 白天 → 夜晚 → 跟随系统**
+## 自定义样式
 
-## 📜 License
+主题颜色集中在 `app/globals.css` 的 CSS 变量中：
+
+```css
+:root {
+  --bg-page: #ffffff;
+  --bg-resume: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #444444;
+  --border: #e5e7eb;
+  --link: #1a56db;
+}
+
+[data-theme="dark"] {
+  --bg-page: #0f1117;
+  --bg-resume: #1a1d27;
+  --text-primary: #f0f0f0;
+  --text-secondary: #c0c0c0;
+  --border: #2d3141;
+  --link: #60a5fa;
+}
+```
+
+打印样式位于同一文件的 `@media print` 和 `@page` 中，默认按 A4 输出。
+
+## License
 
 MIT

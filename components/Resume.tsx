@@ -29,7 +29,6 @@ const LABELS = {
 
 export function Resume({ data, lang = "zh" }: ResumeProps) {
   const L = LABELS[lang];
-  const iconColor = iv("--icon-color");
 
   return (
     <div className="a4-page">

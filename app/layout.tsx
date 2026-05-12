@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "XiaoMing — Senior Full-Stack Engineer",
   description: "XiaoMing's Resume",
   metadataBase: new URL("https://resume.xiaoming.space"),
+  manifest: "/favicons/site.webmanifest",
   icons: {
     icon: "/favicons/favicon.svg",
     apple: "/favicons/apple-touch-icon.png",
