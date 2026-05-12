@@ -53,29 +53,14 @@ export function ResumePageClient({ initialLang }: ResumePageClientProps) {
   const cycleTheme = () =>
     setTheme(t => t === "system" ? "light" : t === "light" ? "dark" : "system");
 
-  const exportPdf = async () => {
-    try {
-      setExporting(true);
-      const response = await fetch(`/api/export-pdf?lang=${lang}`);
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
+  const exportPdf = () => {
+    if (!data) return;
 
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${data?.name || "resume"}-${lang}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error(error);
+    setExporting(true);
+    requestAnimationFrame(() => {
       window.print();
-    } finally {
       setExporting(false);
-    }
+    });
   };
 
   const themeLabel = (l: Lang) => {

@@ -225,6 +225,8 @@ html, body {
   html, body {
     background: white !important;
     height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
@@ -244,7 +246,9 @@ html, body {
     min-height: unset !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 10mm 13mm !important;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
@@ -300,6 +304,13 @@ html, body {
   section {
     break-inside: auto;
     page-break-inside: auto;
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  section:not(:first-child) {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
   }
 
   p,
@@ -325,5 +336,5 @@ html, body {
 
 @page {
   size: A4;
-  margin: 10mm 13mm;
+  margin: 0;
 }

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
-      <body style={{ fontFamily: "'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" }}>
+      <body style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'WenQuanYi Zen Hei', 'Noto Sans CJK SC', sans-serif" }}>
         {children}
       </body>
     </html>

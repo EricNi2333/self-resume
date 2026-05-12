@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────
 # Stage 1 · Builder
 # ─────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:20-alpine3.20 AS builder
 
 # Install pnpm
 RUN npm install -g pnpm@10.14.0
@@ -25,17 +25,13 @@ RUN pnpm build
 # ─────────────────────────────────────────────
 # Stage 2 · Runner  (minimal production image)
 # ─────────────────────────────────────────────
-FROM node:20-alpine AS runner
+FROM node:20-alpine3.20 AS runner
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
-# Chromium is used by the PDF export API.
-RUN apk add --no-cache chromium
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs \

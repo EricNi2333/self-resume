@@ -10,8 +10,8 @@
 - 运行时读取简历数据：客户端从 `public/resume-data.zh.json` 和 `public/resume-data.en.json` 拉取数据，修改 JSON 后刷新页面即可看到结果。
 - 主题切换：默认跟随系统 `prefers-color-scheme`，也可以手动切换亮色和暗色。
 - A4 简历版式：页面预览按 A4 尺寸排版，并提供打印样式。
-- PDF 导出：页面按钮调用 `/api/export-pdf`，使用本机 Chrome / Edge / Chromium 的 headless 打印能力生成 PDF；失败时回退到浏览器打印。
-- Docker 支持：提供多阶段 `Dockerfile` 和 `docker-compose.yml`，生产镜像使用 Next.js standalone 输出，并内置 Chromium 供 PDF 导出使用。
+- PDF 导出：页面按钮直接调用浏览器打印，使用当前浏览器保存为 PDF。
+- Docker 支持：提供多阶段 `Dockerfile` 和 `docker-compose.yml`，生产镜像使用 Next.js standalone 输出，不内置 Chromium。
 - SEO / 分享图：包含 favicon、manifest、Open Graph metadata 和动态 `opengraph-image.tsx`。
 
 ## 技术栈
@@ -71,22 +71,8 @@ pnpm lint     # ESLint 检查
 
 ## PDF 导出
 
-页面顶部的 PDF 按钮会请求：
+页面顶部的 PDF 按钮会调用 `window.print()`，由当前浏览器打开打印窗口。选择“另存为 PDF”即可导出，不需要服务端安装 Chrome、Edge 或 Chromium。
 
-```text
-/api/export-pdf?lang=zh
-/api/export-pdf?lang=en
-```
-
-本地运行时需要机器上安装 Chrome、Edge 或 Chromium。也可以显式设置：
-
-```bash
-CHROME_EXECUTABLE_PATH=/path/to/chrome pnpm start
-# 或
-PUPPETEER_EXECUTABLE_PATH=/path/to/chromium pnpm start
-```
-
-Docker 镜像会安装 Alpine Chromium，并设置 `PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser`。
 
 ## Docker 部署
 
@@ -141,7 +127,6 @@ volumes:
 ```text
 self-resume/
 ├─ app/
-│  ├─ api/export-pdf/route.ts   # PDF 导出接口
 │  ├─ globals.css               # 全局样式、主题变量、A4/打印样式
 │  ├─ layout.tsx                # 根布局与 metadata
 │  ├─ opengraph-image.tsx       # Open Graph 分享图
