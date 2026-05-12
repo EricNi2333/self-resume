@@ -4,12 +4,12 @@
 FROM node:20-alpine AS builder
 
 # Install pnpm
-RUN npm install -g pnpm@11.0.9
+RUN npm install -g pnpm@10.14.0
 
 WORKDIR /app
 
 # Copy manifests first for layer cache
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 
 # Install all deps (including devDeps needed for build)
 RUN pnpm config set registry https://registry.npmmirror.com && \
